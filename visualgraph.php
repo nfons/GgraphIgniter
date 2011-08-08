@@ -5,9 +5,13 @@ class visualgraph
     public $data; //the data for the data table
     public $string; //main string
     private $num_cols;
-    
-    public function visualgraph()
+    public $gtitle;
+    /**
+     * @param string title. title of the graph
+     */
+    public function visualgraph($title)
     {
+        $this->gtitle = $title;
         $this->string.= '<script type="text/javascript" src="http://www.google.com/jsapi"></script>
     <script type="text/javascript">
       google.load(\'visualization\', \'1\', {packages: [\'corechart\',\'imagelinechart\']});
@@ -80,6 +84,13 @@ class visualgraph
         $this->num_cols++; //increase the number of cells
     }
     
+    
+    /*
+     * DRAWING.
+     */
+    
+    
+    
     public function drawLine()
     {
         //echo 'current data . <br >'.$this->data;
@@ -87,7 +98,8 @@ class visualgraph
         $this->string .='new google.visualization.LineChart(document.getElementById(\'visualization\')).
       draw(data, {curveType: "function",
                   width: 500, height: 400,
-                  vAxis: {maxValue: 10}}
+                  vAxis: {maxValue: 10},
+                  title: "'.$this->gtitle.'"}
                    );
       }
       
@@ -101,7 +113,7 @@ class visualgraph
     {
         $this->string .=$this->data;
         $this->string .= "new google.visualization.ImageLineChart(document.getElementById('visualization')).
-      draw(data, null);
+      draw(data, {title: \"".$this->gtitle."\"});
       }
       google.setOnLoadCallback(drawVisualization);
     </script>";
@@ -114,15 +126,26 @@ class visualgraph
      */
     public function drawPie()
     {
-        
+       $this->string .= $this->data;
+       $this->string .= "new google.visualization.PieChart(document.getElementById('visualization')).
+       draw(data, {title: \"".$this->gtitle."\"}); }
+      google.setOnLoadCallback(drawVisualization);
+    </script>";
+       
+       return $this->string;
     }
     /**
      * image version of pie chart.
      */
     public function drawImagePie()
     {
-        $this->string = " new google.visualization.ImagePieChart(document.getElementById('visualization')).
-      draw(data, null);";
+        $this->string .= $this->data;
+        $this->string .= " new google.visualization.ImagePieChart(document.getElementById('visualization')).
+        draw(data, {title: \"".$this->gtitle."\"}); }
+         google.setOnLoadCallback(drawVisualization);
+        </script>";
+        
+        return $this->string;
     }
     
     /**
@@ -130,7 +153,52 @@ class visualgraph
      */
     public function drawBar()
     {
-       $this; 
+       $this->string .= $this->data;
+       $this->string .= "var options = {};
+           options.title=\"".$this->gtitle."\";
+  // 'bhg' is a horizontal grouped bar chart in the Google Chart API.
+  // The grouping is irrelevant here since there is only one numeric column.
+  options.cht = 'bvg';
+
+  // Add a data range.
+  var min = 0;
+  var max = 20;
+  options.chds = min + ',' + max;
+
+  // Now add data point labels at the end of each bar.
+
+  // Add meters suffix to the labels.
+  var meters = 'N** m';
+
+  // Draw labels in pink.
+  var color = 'ff3399';
+
+  // Google Chart API needs to know which column to draw the labels on.
+  // Here we have one labels column and one data column.
+  // The Chart API doesn't see the label column.  From its point of view,
+  // the data column is column 0.
+  var index = 0;
+
+  // -1 tells Google Chart API to draw a label on all bars.
+  var allbars = -1;
+
+  // 10 pixels font size for the labels.
+  var fontSize = 10;
+ 
+  // Priority is not so important here, but Google Chart API requires it.
+  var priority = 0;
+
+  options.chm = [meters, color, index, allbars, fontSize, priority].join(',');
+
+  // Create and draw the visualization.
+  new google.visualization.ImageChart(document.getElementById('visualization')).
+    draw(data, options);
+}    
+google.setOnLoadCallback(drawVisualization);
+  
+        </script>";
+       
+       return $this->string;
     }
     
     /**
