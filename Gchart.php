@@ -1,9 +1,12 @@
 <?php
+
 require_once 'gchart/visualgraph.php';
 require_once 'gchart/visualgraph.php';
 
 class Gchart
 {
+    //private $rows;
+    //private $cols;
     /**
      *this will draw out the chart for you
      * @param string $chart_type chart type you wat to use
@@ -50,7 +53,16 @@ class Gchart
                  
      }
   
-        
+     private function getCols($data)
+     {
+         //$this->cols = $data[0];
+         return $data[0];
+     }
+     
+     private function getRows($data)
+     {
+         return $data[1];
+     }
   
 }
 ?>
