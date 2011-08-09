@@ -1,7 +1,6 @@
 <?php
 
 require_once 'gchart/visualgraph.php';
-require_once 'gchart/visualgraph.php';
 
 class Gchart
 {
