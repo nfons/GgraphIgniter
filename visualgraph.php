@@ -6,11 +6,15 @@ class visualgraph
     public $string; //main string
     private $num_cols;
     public $gtitle;
+    private $yAxis;
+    private $xAxis;
     /**
      * @param string title. title of the graph
      */
-    public function visualgraph($title)
+    public function visualgraph($title,$y='',$x='')
     {
+        $this->xAxis = $x;
+        $this->yAxis = $y;
         $this->gtitle = $title;
         $this->string.= '<script type="text/javascript" src="http://www.google.com/jsapi"></script>
     <script type="text/javascript">
@@ -98,7 +102,8 @@ class visualgraph
         $this->string .='new google.visualization.LineChart(document.getElementById(\'visualization\')).
       draw(data, {curveType: "function",
                   width: 500, height: 400,
-                  vAxis: {maxValue: 10},
+                  vAxis: {maxValue: 10, title:"'.$this->yAxis.'"},
+                  hAxis: {title:"'.$this->xAxis.'"},
                   title: "'.$this->gtitle.'"}
                    );
       }
@@ -191,8 +196,8 @@ class visualgraph
   options.chm = [meters, color, index, allbars, fontSize, priority].join(',');
   options.hAxis = {};
   options.vAxis = {};
-  options.hAxis.title = \"hello\";
-  options.vAxis.title = \"world\";
+  options.hAxis.title = \"".$this->xAxis."\";
+  options.vAxis.title = \"".$this->yAxis."\";
   
   // Create and draw the visualization.
   new google.visualization.ColumnChart(document.getElementById('visualization')).
@@ -257,5 +262,7 @@ var options = {};
         
         return $this->string;
     }
+    
+    
 }
 ?>
