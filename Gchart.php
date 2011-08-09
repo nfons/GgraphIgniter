@@ -1,7 +1,7 @@
 <?php
 
 require_once 'gchart/visualgraph.php';
-require_once 'gchart/visualgraph.php';
+
 
 class Gchart
 {
@@ -16,14 +16,18 @@ class Gchart
     public function draw($chart_type, $title='', $gData='', $yaxis ='',$xaxis='')
     {
         $data = new visualgraph($title,$yaxis,$xaxis);
-        for($i=0; $i < count($gData[0]); $i++)
-        {
-            $data->addColumn($gData[0][$i][0], $gData[0][$i][1]);
-        }
         
-        for($i=0; $i < count($gData[1]); $i++)
+        //column details
+        $cols = $this->getCols($gData);
+        for($i=0; $i < count($this->getCols($gData)); $i++)
         {
-            $data->addRow($gData[1][$i]);
+            $data->addColumn($cols[$i][0], $cols[$i][1]);
+        }
+        //row details
+        $rows = $this->getRows($gData);
+        for($i=0; $i < count($rows); $i++)
+        {
+            $data->addRow($rows[$i]);
         }
         
         $return;
@@ -49,10 +53,13 @@ class Gchart
                  break;
         }
         
+        //add the instantiation
+        $return .='<div id="visualization" style="width: 500px; height: 400px;"></div>';
         return $return;
                  
      }
   
+     
      private function getCols($data)
      {
          //$this->cols = $data[0];
@@ -64,5 +71,7 @@ class Gchart
          return $data[1];
      }
   
+     
+     
 }
 ?>
