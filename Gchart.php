@@ -2,7 +2,6 @@
 
 require_once 'gchart/visualgraph.php';
 
-
 class Gchart
 {
     //private $rows;
@@ -62,7 +61,7 @@ class Gchart
      
      private function getCols($data)
      {
-         //$this->cols = $data[0];
+        
          return $data[0];
      }
      
