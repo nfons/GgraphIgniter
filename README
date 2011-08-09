@@ -2,6 +2,9 @@ this is a attempt at converting google graph API to work with Codeigniter.
 for codeigniter please visit http://codeigniter.com.
 for google graph code, visit http://code.google.com/apis/chart/
 
+its not the cleanest thing in the world, but it gets the job done.
+place the visualgraph.php inside 'gchart/' directory. and place the Gchart.php inside the libraries folder in application/ directory
+
 this is released under GNuGPLv3.
 please send email for any question/comments or suggestions
 email me at natefonseka dot com
