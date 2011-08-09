@@ -159,6 +159,64 @@ class visualgraph
   // 'bhg' is a horizontal grouped bar chart in the Google Chart API.
   // The grouping is irrelevant here since there is only one numeric column.
   options.cht = 'bvg';
+  
+  // Add a data range.
+  var min = 0;
+  var max = 20;
+  options.chds = min + ',' + max;
+
+  // Now add data point labels at the end of each bar.
+
+  // Add meters suffix to the labels.
+  var meters = 'N** m';
+
+  // Draw labels in pink.
+  var color = 'ff3399';
+
+  // Google Chart API needs to know which column to draw the labels on.
+  // Here we have one labels column and one data column.
+  // The Chart API doesn't see the label column.  From its point of view,
+  // the data column is column 0.
+  var index = 0;
+
+  // -1 tells Google Chart API to draw a label on all bars.
+  var allbars = -1;
+
+  // 10 pixels font size for the labels.
+  var fontSize = 10;
+ 
+  // Priority is not so important here, but Google Chart API requires it.
+  var priority = 0;
+
+  options.chm = [meters, color, index, allbars, fontSize, priority].join(',');
+  options.hAxis = {};
+  options.vAxis = {};
+  options.hAxis.title = \"hello\";
+  options.vAxis.title = \"world\";
+  
+  // Create and draw the visualization.
+  new google.visualization.ColumnChart(document.getElementById('visualization')).
+      draw(data,options);
+}    
+google.setOnLoadCallback(drawVisualization);
+  
+        </script>";
+       
+       return $this->string;
+    }
+    
+    /**
+     * this function will draw the bar in image format, so that the user can save it
+     */
+    public function drawImageBar()
+    {   $this->string .= $this->data;
+    
+        $this->string .="
+var options = {};
+           options.title=\"".$this->gtitle."\";
+  // 'bhg' is a horizontal grouped bar chart in the Google Chart API.
+  // The grouping is irrelevant here since there is only one numeric column.
+  options.cht = 'bvg';
 
   // Add a data range.
   var min = 0;
@@ -189,25 +247,15 @@ class visualgraph
   var priority = 0;
 
   options.chm = [meters, color, index, allbars, fontSize, priority].join(',');
-
-  // Create and draw the visualization.
-  new google.visualization.ImageChart(document.getElementById('visualization')).
-    draw(data, options);
-}    
-google.setOnLoadCallback(drawVisualization);
+  
+    new google.visualization.ImageChart(document.getElementById('visualization')).
+    draw(data, options);  
+    }
+    google.setOnLoadCallback(drawVisualization);
   
         </script>";
-       
-       return $this->string;
-    }
-    
-    /**
-     * this function will draw the bar in image format, so that the user can save it
-     */
-    public function drawImageBar()
-    {
-        $this->string .="new google.visualization.ImageChart(document.getElementById('visualization')).
-    draw(data, options);  ";
+        
+        return $this->string;
     }
 }
 ?>
