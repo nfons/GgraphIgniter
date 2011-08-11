@@ -8,7 +8,6 @@ mysql databases or any type of data storage mechanism (like XML parsing)
 <br />
 you will need to supply the column/row data (i suggest running queries to add the data)
 and then the draw() will create the proper chart you want.
-
 <b>Examples: </b>
 <hr />
 getting data from a mysql query in CI:
@@ -48,7 +47,6 @@ $cols[1][0] and [1][1] is basically, 1st column on each row is a number, and it 
                 $gd[0] = $cols;
                 $gd[1] = $rows;
                 $data['chart'] =$this->gchart->draw("line","hello world",$gd,"y axis","x axis"); //draw(TYPE OF CHART, TITLE, DATA, yaxis title, x axis title )
-
 <i>
 please send email for any question/comments or suggestions
 email me at natefonseka dot com
