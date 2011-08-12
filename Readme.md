@@ -11,6 +11,7 @@ and then the draw() will create the proper chart you want.
 <b>Examples: </b>
 <hr />
 getting data from a mysql query in CI:
+
                 $this->load->library('gchart');
                 $this->load->database(); //load the database
                 $query = $this->db->get('data'); //
@@ -25,10 +26,9 @@ getting data from a mysql query in CI:
                     $rows[$i] = $s;
                     $i++;
                 }
-                /*
- please note that, the number of elements in $s is dependent on how many columns/data you want to have. in this example,
- i want to graph how many Cats and Dogs each person has.                 
-*/
+ /*please note that, the number of elements in $s is dependent on how many columns/data you want to have. in this example,
+ i want to graph how many Cats and Dogs each person has. */
+<br />
                 $cols; 
                 $cols[0][0]="string";
                 $cols[0][1] ="x";
@@ -37,12 +37,12 @@ getting data from a mysql query in CI:
                 $cols[2][0] ="number";
                 $cols[2][1] ="dogs";
 
-                /*
+               
+/* 
 this part is important...this is what tells google charts, which $s[index] is what kind of data. this will always be a doube array. let this be visualized as such:
 $cols[INDEX OF $S ][type of data] and $cols[INDEX of $S][What the data is]
 so for example, $cols[0][0] and $cols[0][1] tells google data: "the data is 0th column, in each row, is a "string" and this string is what "x axis" is.
-$cols[1][0] and [1][1] is basically, 1st column on each row is a number, and it is the number of cats.
-*/
+$cols[1][0] and [1][1] is basically, 1st column on each row is a number, and it is the number of cats.*/
 
                 $gd[0] = $cols;
                 $gd[1] = $rows;
