@@ -49,5 +49,6 @@ $cols[1][0] and [1][1] is basically, 1st column on each row is a number, and it 
                 $data['chart'] =$this->gchart->draw("line","hello world",$gd,"y axis","x axis"); //draw(TYPE OF CHART, TITLE, DATA, yaxis title, x axis title )
 <i>
 please send email for any question/comments or suggestions
-email me at natefonseka dot com
+email : admin at natefonseka dot com
+
 </i>

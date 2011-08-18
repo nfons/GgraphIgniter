@@ -16,7 +16,8 @@ class Gchart
         $this->rowSet = false;
     }
     /**
-     *this will draw out the chart for you
+     * this will draw out the chart for you you dont need to pass anything in, other than Gdata.
+     * if you call the functions setCols and parse_query, then you will be ok to leave Gdata blank as well
      * @param string $chart_type chart type you wat to use
      * @param string $title title of the chart
      * @param array $gData Data for the chart to use
@@ -92,13 +93,14 @@ class Gchart
                  
      }
   
-     
+     //gets the column lists
      private function getCols($data)
      {
         
          return $data[0];
      }
      
+     //gets the rows for the data pass. assuming data is multi-dimentional array
      private function getRows($data)
      {
          return $data[1];
@@ -135,6 +137,9 @@ class Gchart
         $this->rowSet = true;
      }
      
+     /*
+      * this will take a 2 dimentional array and add the columns in 
+      */
      public function setCol($col)
      {
          $this->cols = $col;
