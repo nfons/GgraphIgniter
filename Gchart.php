@@ -25,25 +25,42 @@ class Gchart
     {
         $data = new visualgraph($title,$yaxis,$xaxis);
         //this is fresh data, the user has not called in setRow and setCol has not been called
-        if((!$this->colsSet && !$this->rowSet) && isset ($gData))
+        if($this->colsSet == false && $this->rowSet == false)
         {
-            //column details
-            $cols = $this->getCols($gData);
-            for($i=0; $i < count($cols); $i++)
+            if(isset($gData))
             {
-                $data->addColumn($cols[$i][0], $cols[$i][1]);
+                //column details
+                $cols = $this->getCols($gData);
+                for($i=0; $i < count($cols); $i++)
+                {
+                    $data->addColumn($cols[$i][0], $cols[$i][1]);
+                }
+                //row details
+                $rows = $this->getRows($gData);
+                for($i=0; $i < count($rows); $i++)
+                {
+                    $data->addRow($rows[$i]);
+                }
             }
-            //row details
-            $rows = $this->getRows($gData);
-            for($i=0; $i < count($rows); $i++)
+            else
             {
-                $data->addRow($rows[$i]);
+                die("Draw was not given Data to draw from. please pass in Data or call setCol  and prase_query to set the data");
             }
+            
+                
         }
         
-        else
+        else //the user passed in before
         {
-            die("Error. gData corrupted");
+           for($i = 0; $i < count($this->cols); $i++)
+           {
+               $data->addColumn($this->cols[$i][0], $this->cols[$i][1]);
+           }
+           
+           for($i = 0; $i < count($this->rows); $i++)
+           {
+               $data->addRow($this->rows[$i]);
+           }
         }
 
         $return;
@@ -97,14 +114,21 @@ class Gchart
         $index = 0;
         foreach($query->result() as $row)
         {
-           $s;
+           global $s;
+           if(count($this->cols) == 0)
+           {
+               echo "It seems you tried to call parse_query BEFORE you setCols. you need to setCols first";
+               die();
+           }
            for($i = 0; $i < count($this->cols); $i++)
            {
-               $s[$i] = $row->$limits[$i];
-               echo $limits[$i];
+               if($i == 0)
+                $s[$i] ='"'.$row->$limits[$i].'"';
+               else
+                   $s[$i] = $row->$limits[$i];
            }
            
-           //$this->rows[$index] = $s;
+           $this->rows[$index] = $s;
            $index++;
         }
         
