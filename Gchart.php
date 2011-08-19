@@ -30,16 +30,16 @@ class Gchart
             if(isset($gData))
             {
                 //column details
-                $cols = $this->getCols($gData);
-                for($i=0; $i < count($cols); $i++)
+                $this->cols = $this->getCols($gData);
+                for($i=0; $i < count($this->cols); $i++)
                 {
-                    $data->addColumn($cols[$i][0], $cols[$i][1]);
+                    $data->addColumn($his->cols[$i][0], $$this->cols[$i][1]);
                 }
                 //row details
-                $rows = $this->getRows($gData);
-                for($i=0; $i < count($rows); $i++)
+                $this->rows = $this->getRows($gData);
+                for($i=0; $i < count($this->rows); $i++)
                 {
-                    $data->addRow($rows[$i]);
+                    $data->addRow($this->rows[$i]);
                 }
             }
             else
