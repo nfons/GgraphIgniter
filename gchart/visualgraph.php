@@ -8,6 +8,7 @@ class visualgraph
     public $gtitle;
     private $yAxis;
     private $xAxis;
+    
     /**
      * @param string title. title of the graph
      */
@@ -91,6 +92,10 @@ class visualgraph
     
     /*
      * DRAWING.
+      Image Draw functions return a png/jpg that can be saved to the desktop
+      a non image draw function (like drawLine) return an interactive function
+
+
      */
     
     
@@ -113,7 +118,7 @@ class visualgraph
     </script>';
         return $this->string;
     }
-    
+  
     public function drawImageLine()
     {
         $this->string .=$this->data;
